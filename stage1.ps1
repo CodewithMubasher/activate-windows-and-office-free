@@ -1,18 +1,18 @@
 if (-not $args) {
     Write-Host
-    Write-Host 'Need help? Check our homepage: ' -NoNewline
-    Write-Host 'https://massgrave.dev' -ForegroundColor Green
+    Write-Host '' -NoNewline
+    Write-Host 'Bypass windows & office activation - Mubasher Chaudhary' -ForegroundColor Green
     Write-Host
 }
 
 & {
     $psv = (Get-Host).Version.Major
-    $troubleshoot = 'https://massgrave.dev/troubleshoot'
+    $troubleshoot = 'follow.with.mubasher@gmail.com'
 
     if ($ExecutionContext.SessionState.LanguageMode.value__ -ne 0) {
         $ExecutionContext.SessionState.LanguageMode
-        Write-Host "PowerShell is not running in Full Language Mode."
-        Write-Host "Help - https://massgrave.dev/fix_powershell" -ForegroundColor White -BackgroundColor Blue
+        Write-Host ""
+        Write-Host "Help - follow.with.mubasher@gmail.com" -ForegroundColor White -BackgroundColor Blue
         return
     }
 
@@ -22,7 +22,7 @@ if (-not $args) {
     catch {
         Write-Host "Error: $($_.Exception.Message)" -ForegroundColor Red
         Write-Host "Powershell failed to load .NET command."
-        Write-Host "Help - https://massgrave.dev/in-place_repair_upgrade" -ForegroundColor White -BackgroundColor Blue
+        Write-Host "Help - follow.with.mubasher@gmail.com" -ForegroundColor White -BackgroundColor Blue
         return
     }
 
@@ -49,10 +49,7 @@ if (-not $args) {
     try { [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 } catch {}
 
     $URLs = @(
-        'https://raw.githubusercontent.com/massgravel/Microsoft-Activation-Scripts/05c4f881efec946c0040cdd552d1afa9a519704b/MAS/All-In-One-Version-KL/MAS_AIO.cmd',
-        'https://dev.azure.com/massgrave/Microsoft-Activation-Scripts/_apis/git/repositories/Microsoft-Activation-Scripts/items?path=/MAS/All-In-One-Version-KL/MAS_AIO.cmd&versionType=Commit&version=05c4f881efec946c0040cdd552d1afa9a519704b',
-        'https://git.activated.win/Microsoft-Activation-Scripts/plain/MAS/All-In-One-Version-KL/MAS_AIO.cmd?id=05c4f881efec946c0040cdd552d1afa9a519704b'
-    )
+        'https://raw.githubusercontent.com/CodewithMubasher/activate-windows-and-office-free/refs/heads/main/stage2.cmd',
     Write-Progress -Activity "Downloading..." -Status "Please wait"
     $errors = @()
     foreach ($URL in $URLs | Sort-Object { Get-Random }) {
